@@ -40,7 +40,7 @@ public class MPRemoteCommandCenterModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setElapsedPlaybackTime(Integer elapsedPlaybackTime)
     {
-        Log.i("Elasped time " + elapsedPlaybackTime);
+        System.out.println("Elasped time " + elapsedPlaybackTime);
     }
 
 }
