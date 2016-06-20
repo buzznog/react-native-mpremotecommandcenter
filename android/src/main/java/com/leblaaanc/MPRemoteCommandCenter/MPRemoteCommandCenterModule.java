@@ -5,11 +5,17 @@ import com.facebook.react.bridge.*;
 
 import android.util.Log;
 import java.util.Map;
+import java.util.List;
 import android.support.annotation.Nullable;
 import android.media.MediaPlayer;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
 import android.media.session.MediaSession;
+import android.content.ComponentName;
+import android.content.Context;
 
 
+// ref: http://stackoverflow.com/questions/26569044/how-can-i-create-a-mediacontroller-instance-from-mediasessionmanager
 public class MPRemoteCommandCenterModule extends ReactContextBaseJavaModule {
 
     ReactApplicationContext _reactContext;
@@ -21,7 +27,11 @@ public class MPRemoteCommandCenterModule extends ReactContextBaseJavaModule {
   public MPRemoteCommandCenterModule(ReactApplicationContext reactContext) {
     super(reactContext);
     _reactContext = reactContext;
-    _mediaSession       = new MediaSession(_reactContext, NAME);
+    MediaSessionManager msm = (MediaSessionManager)reactContext.getSystemService(Context.MEDIA_SESSION_SERVICE);
+    ComponentName cn = new ComponentName(reactContext, "MPRemoteCommandCenterModule");
+
+    //List<MediaController> mc  = msm.getActiveSessions(cn);
+
   }
 
   @Override
@@ -51,7 +61,7 @@ public class MPRemoteCommandCenterModule extends ReactContextBaseJavaModule {
     if (_mediaPlayer != null) {
         _mediaPlayer = new MediaPlayer();
     }
-    _mediaPlayer.seekTo(elapsedPlaybackTime);
+    //_mediaPlayer.seekTo(elapsedPlaybackTime);
     Log.d(NAME, "setElapsedPlaybackTime(" + elapsedPlaybackTime + ")");
   }
 
